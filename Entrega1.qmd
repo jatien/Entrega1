@@ -3,30 +3,34 @@ title: "Entrega 1"
 author: "Javi Torres y Marcos Gibert"
 format: html
 editor: visual
+header-includes:
+- \usepackage{tabular}
+- \usepackage{multirow}
 ---
 
 ## Estudio de datos sobre los pingüinos
 
 A partir del dataset de pingüinos que tenemos haremos un estudio explorativo de los datos. Primero escogeremos los datos más significativos del estudio y encontraremos a partir de las diferentes variables que se nos dan (especie, isla de pertenencia) los valores estadísticos más habituales como la media, la mediana, la desviación típica... Primero vemos que cada muestra tiene varias observaciones sobre el tamaño de diferentes partes del cuerpo de los pingüinos. También tenemos el año de naciomiento y el sexo del animal.
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,results = FALSE,message=FALSE,warning=FALSE}
 library("palmerpenguins")
 library("tidyverse")
 ```
 
 Ya sabiendo todo esto vamos a hacer el estudio estadístico de la longitud del pico de los pingüinos dependiendo de su especie.
 
-```{r,echo=FALSE}
-penguins %>% 
-  count(sex)
-penguins %>% 
+```{r,echo=FALSE,resuts='asis'}
+library(knitr)
+result <- penguins %>% 
   group_by(species) %>% 
-  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+  summarize(across(where(is.numeric), sd, na.rm = TRUE))
+kable(result[1:3,])
 ```
+<table>
 
-$$
-\begin{tabular}{ll}
-A & B \\
-A & B \\
-\end{tabular}
-$$
+Especies           Media      Mediana     Desviación Típica
+-------------  ---------  --------    -----------------
+Adelie         2.66
+Chinstrap          
+Gentoo
+</table>

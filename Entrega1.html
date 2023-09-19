@@ -34,13 +34,13 @@ ul.task-list li input[type="checkbox"] {
 <script src="Entrega1_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Entrega1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Entrega1_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+</head><body class="fullcontent">\usepackage{tabular}
+\usepackage{multirow}
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-</head>
 
-<body class="fullcontent">
+
+
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 
@@ -72,33 +72,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="estudio-de-datos-sobre-los-pingüinos" class="level2">
 <h2 class="anchored" data-anchor-id="estudio-de-datos-sobre-los-pingüinos">Estudio de datos sobre los pingüinos</h2>
 <p>A partir del dataset de pingüinos que tenemos haremos un estudio explorativo de los datos. Primero escogeremos los datos más significativos del estudio y encontraremos a partir de las diferentes variables que se nos dan (especie, isla de pertenencia) los valores estadísticos más habituales como la media, la mediana, la desviación típica… Primero vemos que cada muestra tiene varias observaciones sobre el tamaño de diferentes partes del cuerpo de los pingüinos. También tenemos el año de naciomiento y el sexo del animal.</p>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.3     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.3     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-</div>
 <p>Ya sabiendo todo esto vamos a hacer el estudio estadístico de la longitud del pico de los pingüinos dependiendo de su especie.</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 2
-  sex        n
-  &lt;fct&gt;  &lt;int&gt;
-1 female   165
-2 male     168
-3 &lt;NA&gt;      11</code></pre>
-</div>
+<div class="cell" data-resuts="asis">
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There was 1 warning in `summarize()`.
-ℹ In argument: `across(where(is.numeric), mean, na.rm = TRUE)`.
+ℹ In argument: `across(where(is.numeric), sd, na.rm = TRUE)`.
 ℹ In group 1: `species = Adelie`.
 Caused by warning:
 ! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
@@ -110,21 +88,93 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   # Now
   across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 6
-  species   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g  year
-  &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
-1 Adelie              38.8          18.3              190.       3701. 2008.
-2 Chinstrap           48.8          18.4              196.       3733. 2008.
-3 Gentoo              47.5          15.0              217.       5076. 2008.</code></pre>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 18%">
+<col style="width: 17%">
+<col style="width: 22%">
+<col style="width: 15%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">species</th>
+<th style="text-align: right;">bill_length_mm</th>
+<th style="text-align: right;">bill_depth_mm</th>
+<th style="text-align: right;">flipper_length_mm</th>
+<th style="text-align: right;">body_mass_g</th>
+<th style="text-align: right;">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">2.663405</td>
+<td style="text-align: right;">1.2166498</td>
+<td style="text-align: right;">6.539457</td>
+<td style="text-align: right;">458.5661</td>
+<td style="text-align: right;">0.8217800</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: right;">3.339256</td>
+<td style="text-align: right;">1.1353951</td>
+<td style="text-align: right;">7.131894</td>
+<td style="text-align: right;">384.3351</td>
+<td style="text-align: right;">0.8633601</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: right;">3.081857</td>
+<td style="text-align: right;">0.9812198</td>
+<td style="text-align: right;">6.484976</td>
+<td style="text-align: right;">504.1162</td>
+<td style="text-align: right;">0.7922057</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<p><span class="math display">\[
-\begin{tabular}{ll}
-A &amp; B \\
-A &amp; B \\
-\end{tabular}
-\]</span></p>
+
+<table>
+</table><table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Especies</th>
+<th style="text-align: right;">Media</th>
+<th style="text-align: right;">Mediana</th>
+<th style="text-align: right;">Desviación Típica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">2.66</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
 </section>
 
 </main>
