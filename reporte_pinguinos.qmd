@@ -1,14 +1,17 @@
 ---
-title: "pinguinos"
+title: "Entrega 1"
 format: html
 editor: visual
 ---
 
+## Estudio de datos sobre los pingüinos
+
 En primer lugar descargamos los paquetes necesarios:
 
 ```{r, message=FALSE, warning=FALSE,echo=FALSE}
-install.packages("palmerpenguins")
-install.packages(ggplot2)
+library("palmerpenguins")
+library(ggplot2)
+library("tidyverse")
 
 ```
 
@@ -43,10 +46,54 @@ Tenemos 344 observaciones y cada observación cuenta con 8 variables. 3 variable
 Veamos la desviación típica de las variables cuantitativas
 
 ```{r, message=FALSE, warning=FALSE,echo=FALSE}
-sapply(penguins[c('bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g')], sd, na.rm=T)
+library(knitr)
+sd_peng <- penguins %>% 
+  summarize(across(where(is.numeric), sd, na.rm = TRUE))
+kable(sd_peng[,1:4],
+      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
 ```
 
 La variable con mayor desviación típica es el peso ya que es la que tiene valores más grandes con respecto a las otras variables.
+
+Ahora hagamos el mismo estudio con la media:
+
+```{r, message=FALSE, warning=FALSE,echo=FALSE}
+sd_peng <- penguins %>% 
+  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+kable(sd_peng[,1:4],
+      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
+
+```
+
+Y por último observemos que pasa con la mediana:
+```{r, message=FALSE, warning=FALSE,echo=FALSE}
+sd_peng <- penguins %>% 
+  summarize(across(where(is.numeric), median, na.rm = TRUE))
+kable(sd_peng[,1:4],
+      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
+
+```
+
+También podemos preguntarnos como cambian estos datos estadísticos dependiendo de las variables diferentes que nos presenta el estudio. Por ejemplo vamos a ver las medias dependiendo de especie y de la isla a la que pertenecen. Primero veamos por especie:
+
+```{r, message=FALSE, warning=FALSE,echo=FALSE}
+sd_peng <- penguins %>%
+group_by(species)%>% 
+  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+kable(sd_peng[,1:4],
+      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
+
+```
+
+Y después veamos por isla:
+```{r, message=FALSE, warning=FALSE,echo=FALSE}
+sd_peng <- penguins %>% 
+  group_by(island)%>% summarize(across(where(is.numeric), mean, na.rm = TRUE))
+kable(sd_peng[,1:4],
+      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
+
+```
+Hay diferencias significativas en los dos casos, por especies y por isla. Ahora que ya hemos visto los resultados más generales ahora podemos hacernos preguntas sobre las diferentes relaciones que puede haber entre diferentes medidas.
 
 Veamos que relación hay entre la longitud del pico y la masa de los pingüinos:
 
