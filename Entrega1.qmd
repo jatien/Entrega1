@@ -3,9 +3,6 @@ title: "Entrega 1"
 author: "Javi Torres y Marcos Gibert"
 format: html
 editor: visual
-header-includes:
-- \usepackage{tabular}
-- \usepackage{multirow}
 ---
 
 ## Estudio de datos sobre los pingüinos

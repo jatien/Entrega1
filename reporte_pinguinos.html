@@ -62,70 +62,14 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="estudio-de-datos-sobre-los-pingüinos" class="level2">
 <h2 class="anchored" data-anchor-id="estudio-de-datos-sobre-los-pingüinos">Estudio de datos sobre los pingüinos</h2>
-<p>En primer lugar descargamos los paquetes necesarios:</p>
-<p>El paquete “palmerpenguins” contiene dos datasets</p>
-<p>El dataset penguins es una versión simplificada del dataset original</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 8
-  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
-1 Adelie  Torgersen           39.1          18.7               181        3750
-2 Adelie  Torgersen           39.5          17.4               186        3800
-3 Adelie  Torgersen           40.3          18                 195        3250
-4 Adelie  Torgersen           NA            NA                  NA          NA
-5 Adelie  Torgersen           36.7          19.3               193        3450
-6 Adelie  Torgersen           39.3          20.6               190        3650
-# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
-</div>
-</div>
-<p>Por otro lado, el dataset original es penguins_raw</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 17
-  studyName `Sample Number` Species          Region Island Stage `Individual ID`
-  &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;          
-1 PAL0708                 1 Adelie Penguin … Anvers Torge… Adul… N1A1           
-2 PAL0708                 2 Adelie Penguin … Anvers Torge… Adul… N1A2           
-3 PAL0708                 3 Adelie Penguin … Anvers Torge… Adul… N2A1           
-4 PAL0708                 4 Adelie Penguin … Anvers Torge… Adul… N2A2           
-5 PAL0708                 5 Adelie Penguin … Anvers Torge… Adul… N3A1           
-6 PAL0708                 6 Adelie Penguin … Anvers Torge… Adul… N3A2           
-# ℹ 10 more variables: `Clutch Completion` &lt;chr&gt;, `Date Egg` &lt;date&gt;,
-#   `Culmen Length (mm)` &lt;dbl&gt;, `Culmen Depth (mm)` &lt;dbl&gt;,
-#   `Flipper Length (mm)` &lt;dbl&gt;, `Body Mass (g)` &lt;dbl&gt;, Sex &lt;chr&gt;,
-#   `Delta 15 N (o/oo)` &lt;dbl&gt;, `Delta 13 C (o/oo)` &lt;dbl&gt;, Comments &lt;chr&gt;</code></pre>
-</div>
-</div>
-<p>Veamos un resumen de los datos:</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>      species          island    bill_length_mm  bill_depth_mm  
- Adelie   :152   Biscoe   :168   Min.   :32.10   Min.   :13.10  
- Chinstrap: 68   Dream    :124   1st Qu.:39.23   1st Qu.:15.60  
- Gentoo   :124   Torgersen: 52   Median :44.45   Median :17.30  
-                                 Mean   :43.92   Mean   :17.15  
-                                 3rd Qu.:48.50   3rd Qu.:18.70  
-                                 Max.   :59.60   Max.   :21.50  
-                                 NA's   :2       NA's   :2      
- flipper_length_mm  body_mass_g       sex           year     
- Min.   :172.0     Min.   :2700   female:165   Min.   :2007  
- 1st Qu.:190.0     1st Qu.:3550   male  :168   1st Qu.:2007  
- Median :197.0     Median :4050   NA's  : 11   Median :2008  
- Mean   :200.9     Mean   :4202                Mean   :2008  
- 3rd Qu.:213.0     3rd Qu.:4750                3rd Qu.:2009  
- Max.   :231.0     Max.   :6300                Max.   :2009  
- NA's   :2         NA's   :2                                 </code></pre>
-</div>
-</div>
-<p>Tenemos 344 observaciones y cada observación cuenta con 8 variables. 3 variables cualitativas (especie, isla y sexo) y 5 cuantitativas (longitud y anchura del pico, longitud de aleta, peso y año). Cabe remarcar que a pesar de ser un valor numérico, el año podría considerarse como una variable cualitativa. También es importante notar que no tenemos una distribución uniforme de pingüinos por especies o por islas. Hay 68 individuos de la especie Gentoo y 152 (más del doble) de la especie adelie. Análogamente hay 52 pingüinos en Torgersen mientras que Biscoe acumula 168 (más del triple).</p>
+<p>A partir de la librería <code>palmerpenguins</code> vamos a hacer un estudio de los datos obtenidos. Tenemos 344 observaciones y cada observación cuenta con 8 variables. 3 variables cualitativas (especie, isla y sexo) y 5 cuantitativas (longitud y anchura del pico, longitud de aleta, peso y año). Cabe remarcar que a pesar de ser un valor numérico, el año podría considerarse como una variable cualitativa. También es importante notar que no tenemos una distribución uniforme de pingüinos por especies o por islas. Hay 68 individuos de la especie Gentoo y 152 (más del doble) de la especie adelie. Análogamente hay 52 pingüinos en Torgersen mientras que Biscoe acumula 168 (más del triple).</p>
 <p>Veamos la desviación típica de las variables cuantitativas</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: right;">Largo_pico(mm)</th>
+<th style="text-align: right;">Longitud_pico(mm)</th>
 <th style="text-align: right;">Ancho_pico (mm)</th>
 <th style="text-align: right;">Longitud_aleta(mm)</th>
 <th style="text-align: right;">Peso (g)</th>
@@ -149,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
 <table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: right;">Largo_pico(mm)</th>
+<th style="text-align: right;">Longitud_pico(mm)</th>
 <th style="text-align: right;">Ancho_pico (mm)</th>
 <th style="text-align: right;">Longitud_aleta(mm)</th>
 <th style="text-align: right;">Peso (g)</th>
@@ -172,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
 <table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th style="text-align: right;">Largo_pico(mm)</th>
+<th style="text-align: right;">Longitud_pico(mm)</th>
 <th style="text-align: right;">Ancho_pico (mm)</th>
 <th style="text-align: right;">Longitud_aleta(mm)</th>
 <th style="text-align: right;">Peso (g)</th>
@@ -263,28 +207,28 @@ ul.task-list li input[type="checkbox"] {
 <p>Veamos que relación hay entre la longitud del pico y la masa de los pingüinos:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="reporte_pinguinos_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<p><img src="reporte_pinguinos_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>En general, cuanto más largo es el pico, más masa tiene el pingüino. También se observa que la especie Adelie es la especie con el pico más corto y entre las otras dos especies, a pesar de compartir una longitud de pico similar, los pingüinos de la especie Gentoo son en general más pesados.</p>
 <p>Veamos si hay alguna relación entre la longitud de la aleta y el ancho del pico.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="reporte_pinguinos_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="reporte_pinguinos_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Observamos que dentro de una misma especie pinguinos con aletas largas tienden a tener picos más anchos. Esta relación se da sobretodo en pingüinos de la especie Chinstrap y Gentoo. Además los pingüinos de la especie Adelie y Chinstrap tienen picos más anchos y aletas más cortas, en contraste con los de la especie Gentoo que tienen aletas más largas y picos más finos.</p>
 <p>Nos preguntamos ahora como varían los picos según la especie y sexo.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="reporte_pinguinos_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="reporte_pinguinos_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>El gráfico superior revela que los pingüinos macho tienen un pico más largo y ancho que los pingüinos hembra. También se observa que los pingüinos adelie y Chinstrap comparten un grosor de pico similar, pero los pingüinos Chinstrap tienen el pico más largo. Los pingüinos Gentoo tienen una longitud de pico similar a los pingüinos Chinstrap, pero tienen el pico más fino, por lo que se podría decir que la especie con el pico más grande es la especie Chinstrap.</p>
 <p>Finalmente, estudiaremos si la isla en la que habitan los pingüinos tiene algún efecto sobre su peso.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="reporte_pinguinos_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<p><img src="reporte_pinguinos_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Biscoe es la isla con más variación de peso con diferencia, también es la isla con mayor número de observaciones por lo que es lógico que haya más variación. Además los pingüinos de la isla Biscoe son más pesados en relación a los pingüinos de las otras dos islas, que tienen una distribución de peso bastante similar la una de la otra.</p>

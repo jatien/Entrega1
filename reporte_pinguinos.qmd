@@ -6,41 +6,15 @@ editor: visual
 
 ## Estudio de datos sobre los pingüinos
 
-En primer lugar descargamos los paquetes necesarios:
 
-```{r, message=FALSE, warning=FALSE,echo=FALSE}
+
+```{r, message=FALSE, warning=FALSE,echo=FALSE,results=FALSE}
 library("palmerpenguins")
 library(ggplot2)
 library("tidyverse")
 
 ```
-
-El paquete "palmerpenguins" contiene dos datasets
-
-```{r, message=FALSE, warning=FALSE,echo=FALSE}
-library(palmerpenguins)
-data(package = 'palmerpenguins')
-```
-
-El dataset penguins es una versión simplificada del dataset original
-
-```{r, message=FALSE, warning=FALSE,echo=FALSE}
-head(penguins)
-```
-
-Por otro lado, el dataset original es penguins_raw
-
-```{r, message=FALSE, warning=FALSE,echo=FALSE}
-head(penguins_raw)
-```
-
-Veamos un resumen de los datos:
-
-```{r, message=FALSE, warning=FALSE,echo=FALSE}
-summary(penguins)
-
-```
-
+A partir de la librería `palmerpenguins`\index{chunk option!class.source} vamos a hacer un estudio de los datos obtenidos.
 Tenemos 344 observaciones y cada observación cuenta con 8 variables. 3 variables cualitativas (especie, isla y sexo) y 5 cuantitativas (longitud y anchura del pico, longitud de aleta, peso y año). Cabe remarcar que a pesar de ser un valor numérico, el año podría considerarse como una variable cualitativa. También es importante notar que no tenemos una distribución uniforme de pingüinos por especies o por islas. Hay 68 individuos de la especie Gentoo y 152 (más del doble) de la especie adelie. Análogamente hay 52 pingüinos en Torgersen mientras que Biscoe acumula 168 (más del triple).
 
 Veamos la desviación típica de las variables cuantitativas
@@ -50,7 +24,7 @@ library(knitr)
 sd_peng <- penguins %>% 
   summarize(across(where(is.numeric), sd, na.rm = TRUE))
 kable(sd_peng[,1:4],
-      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
+      col.names = c("Longitud_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
 ```
 
 La variable con mayor desviación típica es el peso ya que es la que tiene valores más grandes con respecto a las otras variables.
@@ -61,7 +35,7 @@ Ahora hagamos el mismo estudio con la media:
 sd_peng <- penguins %>% 
   summarize(across(where(is.numeric), mean, na.rm = TRUE))
 kable(sd_peng[,1:4],
-      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
+      col.names = c("Longitud_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
 
 ```
 
@@ -70,7 +44,7 @@ Y por último observemos que pasa con la mediana:
 sd_peng <- penguins %>% 
   summarize(across(where(is.numeric), median, na.rm = TRUE))
 kable(sd_peng[,1:4],
-      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
+      col.names = c("Longitud_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
 
 ```
 

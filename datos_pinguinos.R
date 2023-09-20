@@ -1,14 +1,19 @@
 library("palmerpenguins")
 library("tidyverse")
 
-penguins %>% 
-  count(sex)
-penguins %>% 
-  group_by(sex,species) %>% 
-  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+#Las medias dependientes de especie
 penguins %>% 
   group_by(species) %>% 
   summarize(across(where(is.numeric), mean, na.rm = TRUE))
+#Desviación típica-por especies
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(where(is.numeric), sd, na.rm = TRUE))
+#mediana-especies
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(where(is.numeric), median, na.rm = TRUE))
+
 
 bill_no_species <- ggplot(data = penguins,
                           aes(x = bill_length_mm,
