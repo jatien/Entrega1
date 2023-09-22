@@ -104,7 +104,7 @@ mass_bill_len
 En general, cuanto más largo es el pico, más masa tiene el pingüino. También se observa que la especie Adelie es la especie con el pico más corto y entre las otras dos especies, a pesar de compartir una longitud de pico similar, los pingüinos de la especie Gentoo son en general más pesados.
 
 Podemos estudiar también como cambia alguna de las observaciones respecto de la isla en la que han sido tomados los datos. Haremos un estudio de todas las observaciones y sus medias respecto a la isla donde han sido medidos los resultados. Veamos la gráfica:
-```{r}
+```{r, message=FALSE, warning=FALSE,echo=FALSE}
 sd_peng <- penguins %>% 
   group_by(island) %>%
   summarize(across(where(is.numeric), mean, na.rm = TRUE))
