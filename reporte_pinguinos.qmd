@@ -22,9 +22,9 @@ Veamos la desviación típica de las variables cuantitativas
 ```{r, message=FALSE, warning=FALSE,echo=FALSE}
 library(knitr)
 sd_peng <- penguins %>% 
-  summarize(across(where(is.numeric), sd , na.rm = TRUE))
+  summarize(across(where(is.numeric), sd, na.rm = TRUE))
 kable(sd_peng[,1:4],
-      col.names = c("Longitud_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
+      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
 ```
 
 La variable con mayor desviación típica es el peso ya que es la que tiene valores más grandes con respecto a las otras variables.
@@ -35,16 +35,17 @@ Ahora hagamos el mismo estudio con la media:
 sd_peng <- penguins %>% 
   summarize(across(where(is.numeric), mean, na.rm = TRUE))
 kable(sd_peng[,1:4],
-      col.names = c("Longitud_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
+      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
 
 ```
 
 Y por último observemos que pasa con la mediana:
+
 ```{r, message=FALSE, warning=FALSE,echo=FALSE}
 sd_peng <- penguins %>% 
   summarize(across(where(is.numeric), median, na.rm = TRUE))
 kable(sd_peng[,1:4],
-      col.names = c("Longitud_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
+      col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
 
 ```
 
@@ -60,6 +61,7 @@ kable(sd_peng[,1:4],
 ```
 
 Y después veamos por isla:
+
 ```{r, message=FALSE, warning=FALSE,echo=FALSE}
 sd_peng <- penguins %>% 
   group_by(island)%>% summarize(across(where(is.numeric), mean, na.rm = TRUE))
@@ -67,6 +69,7 @@ kable(sd_peng[,1:4],
       col.names = c("Largo_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
 
 ```
+
 Hay diferencias significativas en los dos casos, por especies y por isla. Ahora que ya hemos visto los resultados más generales ahora podemos hacernos preguntas sobre las diferentes relaciones que puede haber entre diferentes medidas.
 
 Veamos que relación hay entre la longitud del pico y la masa de los pingüinos:
@@ -100,6 +103,39 @@ mass_bill_len
 
 En general, cuanto más largo es el pico, más masa tiene el pingüino. También se observa que la especie Adelie es la especie con el pico más corto y entre las otras dos especies, a pesar de compartir una longitud de pico similar, los pingüinos de la especie Gentoo son en general más pesados.
 
+Podemos estudiar también como cambia alguna de las observaciones respecto de la isla en la que han sido tomados los datos. Haremos un estudio de todas las observaciones y sus medias respecto a la isla donde han sido medidos los resultados. Veamos la gráfica:
+```{r}
+sd_peng <- penguins %>% 
+  group_by(island) %>%
+  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+
+sd_peng$island <- factor(sd_peng$island)
+sd_peng$island <- c("B", "D", "T")
+
+library(ggplot2)
+library(gridExtra) 
+
+
+plot1 <- ggplot(sd_peng, aes(x = island, y = bill_length_mm)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  theme_minimal()
+
+plot2 <- ggplot(sd_peng, aes(x = island, y = bill_depth_mm)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  theme_minimal()
+
+plot3 <- ggplot(sd_peng, aes(x = island, y = flipper_length_mm)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  theme_minimal()
+
+plot4 <- ggplot(sd_peng, aes(x = island, y = body_mass_g)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  theme_minimal()
+
+
+grid.arrange(plot1, plot2, plot3, plot4, ncol = 4)  
+```
+Las diferencias son apreciables pero no muy grandes, por ejemplo parece que en la isla Biscoe siempre hay mediciones mayores comparadas con las otras islas.  Aun así se puede apreciar que en específico con la anchura del pico ocurre lo contrario. Las otras dos islas son muy similares excepto con la longitud de el pico.
 Veamos si hay alguna relación entre la longitud de la aleta y el ancho del pico.
 
 ```{r, message=FALSE, warning=FALSE,echo=FALSE}
@@ -164,4 +200,18 @@ island_box
 
 ```
 
-Biscoe es la isla con más variación de peso con diferencia, también es la isla con mayor número de observaciones por lo que es lógico que haya más variación. Además los pingüinos de la isla Biscoe son más pesados en relación a los pingüinos de las otras dos islas, que tienen una distribución de peso bastante similar la una de la otra.
+Biscoe es la isla con más variación de peso con diferencia, también es la isla con mayor número de observaciones por lo que es lógico que haya más variación. Además los pingüinos de la isla Biscoe son más pesados en relación a los pingüinos de las otras dos islas, por lo que es probable que sea la. isla con mayor cantidad de pingüinos Gentoo, ya que estos son los más pesados en proporción.
+
+Vamos a ver como se distribuyen las especies en las 3 islas:
+
+```{r, message=FALSE, warning=FALSE,echo=FALSE}
+Island_distribution <- ggplot(data=penguins, aes(x=island, fill=species))+
+  geom_bar(position = 'dodge')+
+  labs(title = 'Penguins by species by island',
+       x="Island",
+       y='count')
+Island_distribution
+
+```
+
+Efectivamente, vemos que los pingüinos Gentoo son prácticamente exclusivos de la Isla Biscoe, lo que explica porque la media de peso de los pingüinos es mayor en esta Isla. También vemos que los pingüinos Chinstrap se encuentran únicamente en Dream y la especie Adelie se distribuye de manera similar en las tres islas.
