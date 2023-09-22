@@ -22,7 +22,7 @@ Veamos la desviación típica de las variables cuantitativas
 ```{r, message=FALSE, warning=FALSE,echo=FALSE}
 library(knitr)
 sd_peng <- penguins %>% 
-  summarize(across(where(is.numeric), sd, na.rm = TRUE))
+  summarize(across(where(is.numeric), sd , na.rm = TRUE))
 kable(sd_peng[,1:4],
       col.names = c("Longitud_pico(mm)","Ancho_pico (mm)", "Longitud_aleta(mm)","Peso (g)"))
 ```
